@@ -68,8 +68,8 @@ Gem::Specification.new do |s|
      "lang/lt.yml",
      "lib/budget_issue_hook.rb",
      "lib/budget_project_hook.rb",
-     "lib/issue_patch.rb",
-     "lib/query_patch.rb",
+     "lib/budget_plugin/issue_patch.rb",
+     "lib/budget_plugin/query_patch.rb",
      "lib/tasks/empty",
      "rails/init.rb"
   ]

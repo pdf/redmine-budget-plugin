@@ -10,11 +10,17 @@ end
 
 # Patches to the Redmine core.
 require 'dispatcher'
-require 'issue_patch'
-require 'query_patch'
-Dispatcher.to_prepare do
-  Issue.send(:include, IssuePatch)
-  Query.send(:include, QueryPatch)
+Dispatcher.to_prepare :budget_plugin do
+  require_dependency 'issue'
+  require_dependency 'query'
+  # Guards against including the module multiple time (like in tests)
+  # and registering multiple callbacks
+  unless Issue.included_modules.include? BudgetPlugin::IssuePatch
+    Issue.send(:include, BudgetPlugin::IssuePatch)
+  end
+  unless Query.included_modules.include? BudgetPlugin::QueryPatch
+    Query.send(:include, BudgetPlugin::QueryPatch)
+  end
 end
 
 # Hooks
